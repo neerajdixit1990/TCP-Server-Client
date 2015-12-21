@@ -1,0 +1,74 @@
+USER Documentation:
+===================
+- The complete assignment consists of 4 .C file namely server.c, client.c,
+  echocli.c, timecli.c and the Makefile and README
+- To compile the assignment just run the command 'make' in the assignment
+  directory
+- To clean the executable files just run the command 'make clean' in the
+  assignment directory
+- To invoke the server just execute 'server' executable
+- To invoke the client just execute 'client <server_name>' executable
+  The <server_name> can be the IP address or hostname of the running server
+  e.g client localhost
+      client 130.245.1.44
+	  client compserv1.cs.stonybrook.edu
+	  client www.google.com
+- To terminate any program, use the option Ctrl^C in the xterm window
+
+
+System Documentation:
+=====================
+Client
+------
+- Command line arguments processsing => Completed successfully in client.c
+
+- The client parent => Completed Successfully in client.c
+
+- The client child => Completed Successfully in echocli.c & timecli.c
+
+- Service request termination and program robustness
+=> Completed Successfully in client.c. Service can be terminated by using
+   Ctrl^C on either window and Ctrl^D on echo window
+   
+- IPC using a pipe => Completed Successfully in client.c
+
+- More robustness
+=> Completed Successfully in client.c. Program is made robust by considering
+   return values of every system call. Appropriate actions are taken after
+   printing the status message on the screen. Handled EINTR, EPIPE. Also
+   handled OS signals like SIGCHLD
+
+Server
+------
+- Multi-threading and server services => Completed successfully in server.c
+
+- Relation to Inetd superserver => Completed successfully in server.c
+
+- Listening on multiple services => Completed successfully in server.c
+
+- Thread safety
+=> There is no thread safe data in our server program. IN other words there is
+   no 'critical section' or shared resource in my server program. So thread
+   safety is not required
+   
+- Robustness => Completed successfully in server.c. Handled EINTR, EPIPE errno
+  in program. Handled OS signals like SIGPIPE on server. Return values of all
+  system calls are checked for errors and appropriate status messages are printed
+  after taking appropriate actions
+  
+- Time server implementation => Completed successfully in server.c
+
+- Proper status messages at the server => Completed successfully in server.c
+
+- SO_REUSEADDR socket option
+=> Used SO_REUSEADDR option on both echo and time sockets
+
+- Nonblocking accept => Completed successfully in server.c. The accept is made
+  non-blocking by the use of 'select' system call
+
+Program Documentation:
+======================
+- Appropriate comments are added in all source files
+- The status message on the screen clearly indicates the occurence of any
+  error (if any) or the status of the code block when it is successfully run
+- All status messages from client child are sent to client parent via IPC pipe
